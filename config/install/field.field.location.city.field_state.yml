@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.location.field_state
+    - custom_migrate.location_type.city
+id: location.city.field_state
+field_name: field_state
+entity_type: location
+bundle: city
+label: State
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

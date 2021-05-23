@@ -1,0 +1,9 @@
+id: mongodb_to_entity
+label: 'Mongo DB migration'
+source:
+  plugin: custom_migrate
+  ids:
+    _id:
+      type: string
+destination:
+  plugin: location

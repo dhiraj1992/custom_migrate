@@ -1,0 +1,58 @@
+<?php
+
+/**
+ * @file
+ * Contains custom_migrate.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function custom_migrate_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the custom_migrate module.
+    case 'help.page.custom_migrate':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('My Awesome Module') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function custom_migrate_theme() {
+  $theme = [];
+  $theme['location'] = [
+    'render element' => 'elements',
+    'file' => 'location.page.inc',
+    'template' => 'location',
+  ];
+  $theme['location_content_add_list'] = [
+    'render element' => 'content',
+    'variables' => ['content' => NULL],
+    'file' => 'location.page.inc',
+  ];
+  return $theme;
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function custom_migrate_theme_suggestions_location(array $variables) {
+  $suggestions = [];
+  $entity = $variables['elements']['#location'];
+  $sanitized_view_mode = strtr($variables['elements']['#view_mode'], '.', '_');
+
+  $suggestions[] = 'location__' . $sanitized_view_mode;
+  $suggestions[] = 'location__' . $entity->bundle();
+  $suggestions[] = 'location__' . $entity->bundle() . '__' . $sanitized_view_mode;
+  $suggestions[] = 'location__' . $entity->id();
+  $suggestions[] = 'location__' . $entity->id() . '__' . $sanitized_view_mode;
+  return $suggestions;
+}
